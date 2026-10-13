@@ -1,0 +1,45 @@
+# Replace the four example entity IDs before saving in Home Assistant.
+# This is a complete dashboard configuration, not configuration.yaml.
+title: Home display
+views:
+  - title: Today
+    path: today
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        cards:
+          - type: markdown
+            content: |
+              # {{ now().strftime('%H:%M') }}
+              {{ now().strftime('%A, %d %B') }}
+            grid_options:
+              columns: full
+          - type: weather-forecast
+            entity: weather.example_home
+            show_current: true
+            show_forecast: true
+            forecast_type: daily
+            grid_options:
+              columns: full
+          - type: calendar
+            entities:
+              - calendar.example_calendar
+            initial_view: listWeek
+            grid_options:
+              columns: full
+      - type: grid
+        cards:
+          - type: heading
+            heading: Room controls
+            icon: mdi:home
+          - type: tile
+            entity: light.example_light
+            name: Light
+            grid_options:
+              columns: full
+          - type: thermostat
+            entity: climate.example_thermostat
+            name: Heating
+            grid_options:
+              columns: full
